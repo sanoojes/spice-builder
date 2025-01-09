@@ -3,7 +3,7 @@ let isConnected = false;
 const liveServerInit = () => {
 	if (isConnected) return;
 
-	const ws = new WebSocket("ws://localhost:5000/");
+	const ws = new WebSocket("ws://localhost:5555/");
 
 	ws.onmessage = (event) => {
 		if (event.data === "reload") {
