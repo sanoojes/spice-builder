@@ -8,7 +8,7 @@ import { parseIni } from "@/utils/parseIni.ts";
 import { watchForFileChanges } from "@/utils/file.ts";
 import { afterBuild, type AfterBuildCB, logger } from "@/utils/esPlugins.ts";
 
-const buildColors = (entryPoint: string) => {
+const buildColors = (entryPoint: string, cb?: AfterBuildCB) => {
 	try {
 		const startTime = Date.now();
 
@@ -19,6 +19,8 @@ const buildColors = (entryPoint: string) => {
 
 		const diff = Date.now() - startTime;
 		console.log(`[Color] built in ${diff}ms`);
+
+		cb?.();
 	} catch (e) {
 		console.error("Error building color.", e);
 	}
@@ -78,8 +80,7 @@ export const build = async ({
 				watchForChanges(jsBuildOptions),
 				watchForChanges(cssBuildOptions),
 				watchForFileChanges(themeFolders.colors, () => {
-					buildColors(themeFolders.colors);
-					afterBuild(cb);
+					buildColors(themeFolders.colors, cb);
 				}),
 			]);
 		})();
