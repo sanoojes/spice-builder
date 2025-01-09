@@ -48,9 +48,8 @@ export const logger: (buildType: string) => Plugin = (buildType) => {
 		},
 	};
 };
-export type AfterBuildCB = (
-	result?: (BuildResult & { count: number }) | null,
-) => void;
+
+export type AfterBuildCB = (result: BuildResult & { count?: number }) => void;
 
 export const afterBuild: (callback: AfterBuildCB) => Plugin = (callback) => {
 	return {

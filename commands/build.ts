@@ -20,7 +20,14 @@ const buildColors = (entryPoint: string, cb?: AfterBuildCB) => {
 		const diff = Date.now() - startTime;
 		console.log(`[Color] built in ${diff}ms`);
 
-		cb?.();
+		// TODO: add errors and warnings like esbuild or make a plugin
+		cb?.({
+			errors: [],
+			warnings: [],
+			outputFiles: undefined,
+			metafile: undefined,
+			mangleCache: undefined,
+		});
 	} catch (e) {
 		console.error("Error building color.", e);
 	}
