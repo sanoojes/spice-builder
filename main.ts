@@ -6,7 +6,7 @@ import { init } from "@/commands/init.ts";
 const main = () => {
 	const cliffy = new Command()
 		.name("spice-builder")
-		.version("1.0.0")
+		.version("0.1.1")
 		.description("A command-line tool for building Spicetify themes");
 
 	cliffy
