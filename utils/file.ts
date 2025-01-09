@@ -5,8 +5,12 @@ import { EXTENSION_CONTENTS } from "@/constants.ts";
 import { STYLE_CONTENTS } from "@/constants.ts";
 import { COLOR_CONTENTS } from "@/constants.ts";
 import type { AppConfig } from "@/types/init.ts";
-import { getLiveReloadExtPath } from "@/utils/liveReload.ts";
+import {
+	getGlobalTypesPath,
+	getLiveReloadExtPath,
+} from "@/utils/liveReload.ts";
 import { execSync } from "@/utils/exec.ts";
+import { download } from "@/utils/liveReload.ts";
 
 export const hasFilesIn = (path: string) => {
 	try {
@@ -60,9 +64,10 @@ export const createThemeFilesTo = (path: string, config: AppConfig) => {
 	);
 
 	(async () => {
-		Deno.writeTextFileSync(
-			join(themeFolders.types, "spicetify.d.ts"),
-			await getLiveReloadExtPath(),
+		await download(
+			join("types", "spicetify.d.ts"),
+			"https://cdn.jsdelivr.net/gh/spicetify/cli@refs/heads/main/globals.d.ts",
+			"Spicetify Global Types",
 		);
 	})();
 
